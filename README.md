@@ -4,7 +4,7 @@
 
 A beautiful, modern web application that uses Google's Gemini AI to provide comprehensive sports statistics across Cricket, Soccer, Tennis, F1, and Basketball.
 
-![Version](https://img.shields.io/badge/version-2.0-blue)
+![Version](https://img.shields.io/badge/version-2.1-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![React](https://img.shields.io/badge/react-19.1.1-61dafb)
 ![TypeScript](https://img.shields.io/badge/typescript-5.9.3-blue)
