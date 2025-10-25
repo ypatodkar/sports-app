@@ -26,9 +26,15 @@ export interface SportConfig {
   icon: string;
   gradient: string;
   suggestions: string[];
+  backgroundId: string;
+  palette: {
+    primary: string;
+    secondary: string;
+  };
+  iconAnimation: string; // CSS animation string for sport-specific icon animations
 }
 
-export type SportName = 'Cricket' | 'Soccer' | 'Tennis' | 'F1' | 'Basketball';
+export type SportName = 'Cricket' | 'Soccer' | 'Tennis' | 'F1' | 'Basketball' | 'Baseball' | 'Swimming' | 'Chess';
 
 export type ViewMode = 'table' | 'chart' | 'videos' | 'all';
 

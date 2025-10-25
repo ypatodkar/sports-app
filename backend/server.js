@@ -23,6 +23,20 @@ app.post('/api/search', async (req, res) => {
   console.log(`Received search for: "${query}" in sport: "${sport}"`);
 
   try {
+    // Sport-specific metric guidance
+    const sportMetrics = {
+      'Cricket': 'batting average, strike rate, centuries, half-centuries, wickets, economy rate, bowling average, ODI/Test/T20 stats',
+      'Soccer': 'goals, assists, appearances, clean sheets, pass completion %, tackle success %, trophies won',
+      'Tennis': 'Grand Slam titles, ATP/WTA ranking, match wins, tournament titles, win-loss records, head-to-head stats',
+      'F1': 'race wins, pole positions, podium finishes, championship titles, fastest laps, constructor standings',
+      'Basketball': 'points per game, rebounds, assists, field goal %, 3-point %, championships, All-Star selections',
+      'Baseball': 'batting average (AVG), home runs (HR), RBIs, on-base percentage (OBP), slugging (SLG), OPS, ERA, WHIP for pitchers, season splits',
+      'Swimming': 'world records (WR), Olympic records (OR), event times, stroke category (freestyle/backstroke/butterfly/breaststroke/medley), splits, heat/semi-final/final results',
+      'Chess': 'Elo rating, FIDE rating, tournament wins, opening repertoire, notable games, world championship results, head-to-head records'
+    };
+
+    const metricsHint = sportMetrics[sport] || 'relevant performance metrics and statistics';
+
     // Enhanced prompt for Gemini AI with better instructions
     const systemPrompt = `
       You are an elite sports statistics analyst with deep knowledge of ${sport}. Your expertise includes:
@@ -31,6 +45,9 @@ app.post('/api/search', async (req, res) => {
       - Team standings and performance metrics
       - Head-to-head comparisons
       - Recent and historical trends
+      
+      SPORT-SPECIFIC METRICS FOR ${sport.toUpperCase()}:
+      When providing statistics for ${sport}, prioritize these metrics: ${metricsHint}
 
       CRITICAL INSTRUCTIONS:
       1. You MUST respond with ONLY a valid JSON object - no other text, explanations, or markdown
@@ -61,8 +78,9 @@ app.post('/api/search', async (req, res) => {
       
       VIDEO CLIP INSTRUCTIONS:
       - IMPORTANT: Use the Google Search grounding tool to find REAL, EXISTING YouTube videos
-      - Search for actual video URLs using queries like "youtube [player name] [event/achievement]"
+      - Search for actual video URLs using queries like "youtube ${sport} [player name] [event/achievement]"
       - Always provide 2-3 relevant video_clips with ACTUAL YouTube URLs from your search results
+      - For ${sport}, include relevant keywords: ${sport.toLowerCase()} highlights, ${sport.toLowerCase()} best moments
       - If you find a video in search results, extract the full YouTube URL
       - Prioritize official channels, highlight compilations, and popular sports content creators
       - If no specific video is found, use highly descriptive titles that will work for YouTube search

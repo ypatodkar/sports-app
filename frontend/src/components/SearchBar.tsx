@@ -40,12 +40,16 @@ const SearchBar: React.FC<SearchBarProps> = ({
       <input
         type="text"
         style={styles.searchBar}
-        placeholder={`Search ${sport} stats, players, matches...`}
+        placeholder={`Search ${sport} stats, players, teams...`}
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={(e) => e.key === 'Enter' && onSearch()}
-        onFocus={(e) => (e.currentTarget.style.borderColor = '#667eea')}
-        onBlur={(e) => (e.currentTarget.style.borderColor = '#e2e8f0')}
+        onFocus={(e) => {
+          Object.assign(e.currentTarget.style, styles.searchBarFocus);
+        }}
+        onBlur={(e) => {
+          Object.assign(e.currentTarget.style, styles.searchBar);
+        }}
       />
       <button
         style={{
@@ -57,20 +61,18 @@ const SearchBar: React.FC<SearchBarProps> = ({
         disabled={isLoading}
         onMouseEnter={(e) => {
           if (!isLoading) {
-            e.currentTarget.style.transform = 'translateY(-2px)';
-            e.currentTarget.style.boxShadow = '0 10px 15px -3px rgb(102 126 234 / 0.5)';
+            Object.assign(e.currentTarget.style, styles.searchButtonHover);
           }
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.transform = 'translateY(0)';
-          e.currentTarget.style.boxShadow = '0 4px 6px -1px rgb(102 126 234 / 0.5)';
+          Object.assign(e.currentTarget.style, styles.searchButton);
         }}
       >
         {isLoading ? '🔍 Searching...' : '🔍 Search'}
       </button>
 
       <SearchSuggestions suggestions={suggestions} onSelect={handleSuggestionSelect} />
-      
+
       {showHistory && <SearchHistory history={history} onSelect={handleHistorySelect} />}
     </div>
   );

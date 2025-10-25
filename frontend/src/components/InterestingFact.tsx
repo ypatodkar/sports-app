@@ -1,4 +1,5 @@
 import React from 'react';
+import { styles } from '../styles/appStyles';
 
 interface InterestingFactProps {
   fact: string;
@@ -8,53 +9,45 @@ const InterestingFact: React.FC<InterestingFactProps> = ({ fact }) => {
   return (
     <div
       style={{
-        backgroundColor: '#fffbeb',
-        border: '2px solid #fbbf24',
-        borderRadius: '1rem',
-        padding: '1.5rem',
-        marginBottom: '1.5rem',
-        boxShadow: '0 4px 6px -1px rgb(251 191 36 / 0.2)',
+        ...styles.interestingFact,
+        display: 'flex',
+        alignItems: 'flex-start',
+        gap: '1rem',
       }}
     >
       <div
         style={{
-          display: 'flex',
-          alignItems: 'flex-start',
-          gap: '1rem',
+          fontSize: '2rem',
+          flexShrink: 0,
         }}
       >
-        <div
+        💡
+      </div>
+      <div>
+        <h4
           style={{
-            fontSize: '2rem',
-            flexShrink: 0,
+            fontSize: '0.9rem',
+            fontWeight: '700',
+            color: '#667eea',
+            marginBottom: '0.5rem',
+            textTransform: 'uppercase',
+            letterSpacing: '0.05em',
+            margin: 0,
           }}
         >
-          💡
-        </div>
-        <div>
-          <h4
-            style={{
-              fontSize: '1rem',
-              fontWeight: '700',
-              color: '#92400e',
-              marginBottom: '0.5rem',
-              textTransform: 'uppercase',
-              letterSpacing: '0.05em',
-            }}
-          >
-            Did You Know?
-          </h4>
-          <p
-            style={{
-              fontSize: '1rem',
-              color: '#78350f',
-              lineHeight: '1.6',
-              margin: 0,
-            }}
-          >
-            {fact}
-          </p>
-        </div>
+          Did You Know?
+        </h4>
+        <p
+          style={{
+            fontSize: '1rem',
+            color: '#cccccc',
+            lineHeight: '1.6',
+            margin: 0,
+            fontStyle: 'italic',
+          }}
+        >
+          {fact}
+        </p>
       </div>
     </div>
   );
