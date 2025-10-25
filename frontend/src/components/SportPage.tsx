@@ -43,7 +43,7 @@ const SportPage: React.FC<SportPageProps> = ({ sport, onBack }) => {
     setResults(null);
 
     try {
-      const response = await fetch('https://3.17.16.67/api/search', {
+      const response = await fetch('https://crkq5nwhr5.execute-api.us-east-2.amazonaws.com/default/sports-app-backend', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
