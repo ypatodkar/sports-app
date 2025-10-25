@@ -210,22 +210,39 @@ Thanks to **Google Search Grounding**, you get:
 
 ```
 Sports-app/
-├── frontend/
+├── frontend/                      # React Frontend
 │   ├── src/
-│   │   ├── App.tsx          # Main application component
-│   │   ├── index.css        # Global styles & animations
-│   │   └── main.tsx         # Application entry point
+│   │   ├── components/           # React components (15+ files)
+│   │   ├── styles/               # Styling files
+│   │   ├── config/               # Sport configurations
+│   │   ├── types/                # TypeScript interfaces
+│   │   ├── App.tsx               # Main application component
+│   │   ├── index.css             # Global styles & animations
+│   │   └── main.tsx              # Application entry point
 │   ├── package.json
 │   └── vite.config.ts
 │
-├── backend/
-│   ├── server.js            # Express server & AI logic
-│   ├── .env                 # Environment variables (create this!)
+├── backend/                       # Node.js Backend
+│   ├── server.js                 # Express server & Gemini AI integration
+│   ├── env.template              # Environment variables template
+│   ├── .env                      # Your API keys (create this!)
 │   └── package.json
 │
-├── ROADMAP.md              # Future development plans
-├── WHATS_NEW.md           # Recent changes log
-└── README.md              # This file
+├── docs/                          # 📚 Documentation (16 files)
+│   ├── DEPLOYMENT_QUICKSTART.md  # 30-min deployment guide
+│   ├── AWS_DEPLOYMENT_GUIDE.md   # Complete AWS guide
+│   ├── GOOGLE_SEARCH_GROUNDING.md # Grounding feature docs
+│   ├── VIDEO_CLIPS_FEATURE.md    # Video integration docs
+│   ├── MULTI_METRIC_CHARTS.md    # Chart system docs
+│   ├── ROADMAP.md                # Future development plans
+│   ├── WHATS_NEW.md              # Recent changes log
+│   └── ... (more documentation)
+│
+├── scripts/                       # 🚀 Deployment Scripts
+│   └── deploy-to-aws.sh          # Automated AWS deployment
+│
+├── .gitignore                     # Git ignore rules
+└── README.md                      # This file
 ```
 
 ---
@@ -479,18 +496,18 @@ If you like this project:
 ## 📚 Additional Documentation
 
 ### Features & Updates
-- 📘 [**What's New**](./WHATS_NEW.md) - Recent updates and changes
-- 🗺️ [**Roadmap**](./ROADMAP.md) - Future development plans
-- 🔍 [**Google Search Grounding**](./GOOGLE_SEARCH_GROUNDING.md) - Real-time data integration
-- 🎥 [**Video Clips Feature**](./VIDEO_CLIPS_FEATURE.md) - YouTube integration details
-- 📊 [**Multi-Metric Charts**](./MULTI_METRIC_CHARTS.md) - Visualization documentation
-- 💡 [**Interesting Facts**](./INTERESTING_FACTS_FEATURE.md) - AI-generated insights
+- 📘 [**What's New**](./docs/WHATS_NEW.md) - Recent updates and changes
+- 🗺️ [**Roadmap**](./docs/ROADMAP.md) - Future development plans
+- 🔍 [**Google Search Grounding**](./docs/GOOGLE_SEARCH_GROUNDING.md) - Real-time data integration
+- 🎥 [**Video Clips Feature**](./docs/VIDEO_CLIPS_FEATURE.md) - YouTube integration details
+- 📊 [**Multi-Metric Charts**](./docs/MULTI_METRIC_CHARTS.md) - Visualization documentation
+- 💡 [**Interesting Facts**](./docs/INTERESTING_FACTS_FEATURE.md) - AI-generated insights
 - 🧩 [**Component Structure**](./frontend/COMPONENT_STRUCTURE.md) - Architecture overview
 
 ### Deployment
-- 🚀 [**Quick Deployment (30 min)**](./DEPLOYMENT_QUICKSTART.md) - Get live on AWS fast!
-- 📖 [**Complete AWS Guide**](./AWS_DEPLOYMENT_GUIDE.md) - Detailed deployment options
-- ⚙️ **Deployment Script**: `./deploy-to-aws.sh` - Automated frontend deployment
+- 🚀 [**Quick Deployment (30 min)**](./docs/DEPLOYMENT_QUICKSTART.md) - Get live on AWS fast!
+- 📖 [**Complete AWS Guide**](./docs/AWS_DEPLOYMENT_GUIDE.md) - Detailed deployment options
+- ⚙️ **Deployment Script**: `./scripts/deploy-to-aws.sh` - Automated frontend deployment
 
 ---
 
@@ -501,10 +518,10 @@ Want to make your app live? We've got you covered!
 ### Quick Start (30 minutes):
 ```bash
 # 1. Deploy frontend with one command
-./deploy-to-aws.sh
+./scripts/deploy-to-aws.sh
 
 # 2. Deploy backend to EC2
-# Follow: DEPLOYMENT_QUICKSTART.md
+# Follow: docs/DEPLOYMENT_QUICKSTART.md
 
 # 3. Your app is live! 🎉
 ```
@@ -514,7 +531,7 @@ Want to make your app live? We've got you covered!
 2. **S3 + CloudFront + EC2** - Production-ready, ~$15/month
 3. **Serverless (Lambda)** - Scalable, pay-per-use
 
-**See [DEPLOYMENT_QUICKSTART.md](./DEPLOYMENT_QUICKSTART.md) for step-by-step guide!**
+**See [DEPLOYMENT_QUICKSTART.md](./docs/DEPLOYMENT_QUICKSTART.md) for step-by-step guide!**
 
 ---
 
