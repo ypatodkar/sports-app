@@ -222,9 +222,9 @@ const Dashboard: React.FC<DashboardProps> = ({ onSelectSport }) => {
               >
                 Get real-time statistics, insights, and highlights
               </p>
-            </div>
+      </div>
 
-            <div style={styles.sportGrid}>
+            <div style={styles.sportGrid} className="sport-grid">
               {sports.map((sport, index) => {
                 const config = sportConfig[sport];
                 const isHovered = hoveredCard === sport;
@@ -232,6 +232,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onSelectSport }) => {
                 return (
                   <div
                     key={sport}
+                    className="sport-card"
                     style={{
                       ...styles.sportCard,
                       ...(isHovered && styles.sportCardHover),

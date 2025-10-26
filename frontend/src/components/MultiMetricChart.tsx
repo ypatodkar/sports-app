@@ -342,7 +342,7 @@ const MultiMetricChart: React.FC<MultiMetricChartProps> = ({ data, sport }) => {
     return (
       <div>
         {/* Multi-metric comparison chart */}
-        <div style={styles.chartContainer}>
+        <div style={styles.chartContainer} className="chart-container">
           <h3 style={styles.chartTitle}>{sportEmoji} All Metrics Comparison</h3>
           <Bar data={createComparisonChart(numericColumns)} options={getBarChartOptions('Overall Performance')} />
         </div>
@@ -361,7 +361,7 @@ const MultiMetricChart: React.FC<MultiMetricChartProps> = ({ data, sport }) => {
             const chartData = createChartData(col, idx);
 
             return (
-              <div key={idx} style={styles.chartContainer}>
+              <div key={idx} style={styles.chartContainer} className="chart-container">
                 {chartType === 'line' ? (
                   <Line data={chartData} options={getLineChartOptions(col.header)} />
                 ) : chartType === 'radar' && data.table.rows.length <= 5 ? (
@@ -379,7 +379,7 @@ const MultiMetricChart: React.FC<MultiMetricChartProps> = ({ data, sport }) => {
 
   // Single metric or too many metrics - show comparison chart only
   return (
-    <div style={styles.chartContainer}>
+    <div style={styles.chartContainer} className="chart-container">
       <h3 style={styles.chartTitle}>{sportEmoji} Visual Analysis</h3>
       <Bar data={createComparisonChart(numericColumns)} options={getBarChartOptions('Statistics Overview')} />
     </div>

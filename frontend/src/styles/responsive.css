@@ -1,0 +1,97 @@
+/* Mobile Responsive Styles */
+
+/* Tablet and below (768px) */
+@media (max-width: 768px) {
+  /* Sport Grid - 2 columns on tablet */
+  .sport-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 16px !important;
+    padding: 20px !important;
+  }
+  
+  /* Charts - better mobile visibility */
+  .chart-container {
+    padding: 1rem !important;
+    min-height: 300px !important;
+  }
+  
+  .chart-container canvas {
+    max-height: 400px !important;
+  }
+  
+  /* Tables - horizontal scroll */
+  table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Reduce font sizes */
+  h1 {
+    font-size: 2rem !important;
+  }
+  
+  h2 {
+    font-size: 1.5rem !important;
+  }
+}
+
+/* Mobile phones (480px) */
+@media (max-width: 480px) {
+  /* Sport Grid - single column on mobile */
+  .sport-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    padding: 16px !important;
+  }
+  
+  /* Sport Cards - compact */
+  .sport-card {
+    padding: 1.25rem !important;
+  }
+  
+  /* Charts - vertical labels and smaller */
+  .chart-container {
+    padding: 0.75rem !important;
+    min-height: 280px !important;
+  }
+  
+  .chart-container canvas {
+    max-height: 350px !important;
+    min-height: 250px !important;
+  }
+  
+  /* Buttons full width */
+  button {
+    width: 100%;
+  }
+  
+  /* Smaller fonts */
+  body {
+    font-size: 14px;
+  }
+  
+  h1 {
+    font-size: 1.75rem !important;
+  }
+  
+  h2 {
+    font-size: 1.25rem !important;
+  }
+}
+
+/* Touch-friendly tap targets */
+@media (hover: none) and (pointer: coarse) {
+  button,
+  .sport-card {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Better active states for touch */
+  button:active,
+  .sport-card:active {
+    opacity: 0.7;
+    transform: scale(0.98);
+  }
+}
