@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { styles } from '../styles/appStyles';
 import { sportConfig } from '../config/sportConfig';
+import { videoAssets } from '../config/assetConfig';
 import type { StatsData, SearchHistory, ViewMode } from '../types';
+import VideoBackground from './VideoBackground';
 import SearchBar from './SearchBar';
 import LoadingState from './LoadingState';
 import ErrorState from './ErrorState';
@@ -10,6 +12,8 @@ import MultiMetricChart from './MultiMetricChart';
 import ResultsTable from './ResultsTable';
 import InterestingFact from './InterestingFact';
 import VideoClips from './VideoClips';
+
+const BackgroundStage = lazy(() => import('./background/BackgroundStage'));
 
 interface SportPageProps {
   sport: string;
@@ -23,6 +27,7 @@ const SportPage: React.FC<SportPageProps> = ({ sport, onBack }) => {
   const [error, setError] = useState<string | null>(null);
   const [searchHistory, setSearchHistory] = useState<SearchHistory[]>([]);
   const [viewMode, setViewMode] = useState<ViewMode>('all');
+  const [searchTrigger, setSearchTrigger] = useState<boolean>(false);
 
   const config = sportConfig[sport as keyof typeof sportConfig];
 
@@ -37,6 +42,10 @@ const SportPage: React.FC<SportPageProps> = ({ sport, onBack }) => {
   const handleSearch = async (searchQuery?: string) => {
     const queryToSearch = searchQuery || query;
     if (!queryToSearch.trim()) return;
+
+    // Trigger 3D animation
+    setSearchTrigger(true);
+    setTimeout(() => setSearchTrigger(false), 100);
 
     setIsLoading(true);
     setError(null);
@@ -78,73 +87,146 @@ const SportPage: React.FC<SportPageProps> = ({ sport, onBack }) => {
     }
   };
 
+  // Get the video background URL based on sport
+  const getVideoBackground = () => {
+    if (sport === 'Cricket') return videoAssets.cricket;
+    if (sport === 'Soccer') return videoAssets.soccer;
+    return null;
+  };
+
+  const videoBackgroundUrl = getVideoBackground();
+
   return (
-    <div style={styles.sportPageContainer}>
+    <div style={{ ...styles.container, position: 'relative', zIndex: 1 }}>
+      {/* Video Background for Cricket and Soccer */}
+      {videoBackgroundUrl && (
+        <VideoBackground videoSrc={videoBackgroundUrl} opacity={0.9} />
+      )}
+      
+      {/* 3D Background */}
+      <Suspense fallback={null}>
+        <BackgroundStage 
+          sportId={config.backgroundId} 
+          onSearchTrigger={searchTrigger}
+          isPaused={false}
+        />
+      </Suspense>
+
       {/* Header */}
-      <div style={styles.sportPageHeader}>
+      <header style={styles.header}>
         <button
           style={styles.backButton}
           onClick={onBack}
           onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = '#f8fafc';
-            e.currentTarget.style.borderColor = '#94a3b8';
+            Object.assign(e.currentTarget.style, styles.backButtonHover);
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = '#ffffff';
-            e.currentTarget.style.borderColor = '#e2e8f0';
+            Object.assign(e.currentTarget.style, styles.backButton);
           }}
         >
-          ← Back
+          ← Back to Home
         </button>
-        <div style={styles.sportTitleContainer}>
+        <div style={styles.sportPageTitle}>
           <span style={styles.sportPageIcon}>{config.icon}</span>
-          <h2 style={styles.sportTitle}>{sport}</h2>
+          <h1 style={{ margin: 0, fontSize: '1.5rem' }}>{sport}</h1>
         </div>
-      </div>
+      </header>
 
-      {/* Search Bar */}
-      <SearchBar
-        query={query}
-        setQuery={setQuery}
-        onSearch={handleSearch}
-        isLoading={isLoading}
-        suggestions={config.suggestions}
-        history={searchHistory}
-        sport={sport}
-        showHistory={!isLoading && !results}
-      />
-
-      {/* Loading State */}
-      {isLoading && <LoadingState sport={sport} />}
-
-      {/* Error State */}
-      {error && <ErrorState message={error} />}
-
-      {/* Results */}
-      {results && !isLoading && (
-        <>
-          <div style={styles.resultsContainer}>
-            {/* Interesting Fact */}
-            {results.interesting_fact && <InterestingFact fact={results.interesting_fact} />}
-            
-            <p style={styles.summary}>📊 {results.summary}</p>
-
-            {/* View Toggle */}
-            <ViewToggle viewMode={viewMode} setViewMode={setViewMode} />
-
-            {/* Chart View */}
-            {(viewMode === 'chart' || viewMode === 'all') && <MultiMetricChart data={results} sport={sport} />}
-
-            {/* Table View */}
-            {(viewMode === 'table' || viewMode === 'all') && <ResultsTable data={results} />}
+      {/* Main Content */}
+      <main style={{ ...styles.mainContent, position: 'relative', zIndex: 2 }}>
+        <div style={styles.pageContainer}>
+          {/* Search Bar */}
+          <div
+            style={{
+              animation: 'slideUp 0.4s ease',
+            }}
+          >
+            <SearchBar
+              query={query}
+              setQuery={setQuery}
+              onSearch={handleSearch}
+              isLoading={isLoading}
+              suggestions={config.suggestions}
+              history={searchHistory}
+              sport={sport}
+              showHistory={!isLoading && !results}
+            />
           </div>
 
-          {/* Video Clips Section */}
-          {(viewMode === 'videos' || viewMode === 'all') && results.video_clips && results.video_clips.length > 0 && (
-            <VideoClips clips={results.video_clips} />
+          {/* Loading State */}
+          {isLoading && (
+            <div style={{ animation: 'slideUp 0.4s ease' }}>
+              <LoadingState sport={sport} />
+            </div>
           )}
-        </>
-      )}
+
+          {/* Error State */}
+          {error && (
+            <div style={{ animation: 'slideUp 0.4s ease' }}>
+              <ErrorState message={error} />
+            </div>
+          )}
+
+          {/* Results */}
+          {results && !isLoading && (
+            <>
+              <div
+                style={{
+                  ...styles.resultsContainer,
+                  animation: 'slideUp 0.4s ease',
+                }}
+              >
+                {/* Interesting Fact */}
+                {results.interesting_fact && (
+                  <InterestingFact fact={results.interesting_fact} />
+                )}
+
+                <p style={styles.summary}>
+                  <span style={{ marginRight: '0.5rem' }}>📊</span>
+                  {results.summary}
+                </p>
+
+                {/* View Toggle */}
+                <ViewToggle viewMode={viewMode} setViewMode={setViewMode} />
+
+                {/* Chart View */}
+                {(viewMode === 'chart' || viewMode === 'all') && (
+                  <MultiMetricChart data={results} sport={sport} />
+                )}
+
+                {/* Table View */}
+                {(viewMode === 'table' || viewMode === 'all') && (
+                  <ResultsTable data={results} />
+                )}
+              </div>
+
+              {/* Video Clips Section */}
+              {(viewMode === 'videos' || viewMode === 'all') &&
+                results.video_clips &&
+                results.video_clips.length > 0 && (
+                  <div style={{ animation: 'slideUp 0.4s ease 0.2s both' }}>
+                    <VideoClips clips={results.video_clips} />
+                  </div>
+                )}
+            </>
+          )}
+
+          {/* Empty State */}
+          {!isLoading && !error && !results && (
+            <div
+              style={{
+                textAlign: 'center',
+                padding: '3rem 2rem',
+                animation: 'slideUp 0.4s ease',
+              }}
+            >
+              <p style={{ fontSize: '1.1rem', color: '#aaaaaa' }}>
+                Search for {sport} statistics to get started
+              </p>
+            </div>
+          )}
+        </div>
+      </main>
     </div>
   );
 };
