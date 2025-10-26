@@ -42,6 +42,7 @@ const VideoClips: React.FC<VideoClipsProps> = ({ clips }) => {
 
   return (
     <div
+      className="video-clips-container"
       style={{
         backgroundColor: '#ffffff',
         borderRadius: '1.5rem',
@@ -60,6 +61,7 @@ const VideoClips: React.FC<VideoClipsProps> = ({ clips }) => {
       >
         <span style={{ fontSize: '1.5rem' }}>🎥</span>
         <h3
+          className="video-clips-title"
           style={{
             fontSize: '1.5rem',
             fontWeight: '700',
@@ -72,6 +74,7 @@ const VideoClips: React.FC<VideoClipsProps> = ({ clips }) => {
       </div>
 
       <div
+        className="video-clips-grid"
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
@@ -84,6 +87,7 @@ const VideoClips: React.FC<VideoClipsProps> = ({ clips }) => {
           return (
             <div
               key={index}
+              className="video-clip-card"
               style={{
                 border: '2px solid #e2e8f0',
                 borderRadius: '1rem',

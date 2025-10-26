@@ -7,7 +7,7 @@ interface LoadingStateProps {
 
 const LoadingState: React.FC<LoadingStateProps> = ({ sport }) => {
   return (
-    <div style={styles.loadingContainer}>
+    <div style={styles.loadingContainer} className="loading-container">
       <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>⏳</div>
       <div style={{ fontSize: '1.2rem', color: '#475569', fontWeight: '600' }}>
         Analyzing {sport} data...

@@ -9,12 +9,13 @@ interface SearchSuggestionsProps {
 const SearchSuggestions: React.FC<SearchSuggestionsProps> = ({ suggestions, onSelect }) => {
   return (
     <div style={styles.suggestionsContainer}>
-      <div style={styles.suggestionsTitle}>💡 Popular Searches:</div>
+      <div style={styles.suggestionsTitle} className="suggestions-title">💡 Popular Searches:</div>
       <div style={styles.suggestionChips}>
         {suggestions.map((suggestion, idx) => (
           <span
             key={idx}
             style={styles.suggestionChip}
+            className="suggestion-chip"
             onClick={() => onSelect(suggestion)}
             onMouseEnter={(e) => {
               e.currentTarget.style.backgroundColor = '#e0e7ff';

@@ -16,10 +16,11 @@ const ViewToggle: React.FC<ViewToggleProps> = ({ viewMode, setViewMode }) => {
   ];
 
   return (
-    <div style={styles.viewToggleContainer}>
+    <div style={styles.viewToggleContainer} className="view-toggle-container">
       {buttons.map(({ mode, icon, label }) => (
         <button
           key={mode}
+          className="view-toggle-button"
           style={{
             ...styles.viewToggleButton,
             ...(viewMode === mode ? styles.viewToggleButtonActive : {}),

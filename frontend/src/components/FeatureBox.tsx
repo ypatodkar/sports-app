@@ -10,8 +10,8 @@ const FeatureBox: React.FC = () => {
   ];
 
   return (
-    <div style={styles.infoBox}>
-      <h3 style={styles.infoBoxTitle}>🚀 Features</h3>
+    <div style={styles.infoBox} className="info-box">
+      <h3 style={styles.infoBoxTitle} className="info-box-title">🚀 Features</h3>
       <div
         style={{
           display: 'grid',

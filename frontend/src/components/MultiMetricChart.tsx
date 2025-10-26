@@ -131,10 +131,11 @@ const MultiMetricChart: React.FC<MultiMetricChartProps> = ({ data, sport }) => {
         labels: {
           font: {
             family: 'Inter',
-            size: 12,
+            size: window.innerWidth < 768 ? 10 : 12,
             weight: 600,
           },
           color: '#1e293b',
+          padding: window.innerWidth < 768 ? 8 : 10,
         },
       },
       title: {
@@ -142,13 +143,13 @@ const MultiMetricChart: React.FC<MultiMetricChartProps> = ({ data, sport }) => {
         text: metricName,
         font: {
           family: 'Inter',
-          size: 16,
+          size: window.innerWidth < 768 ? 13 : 16,
           weight: 700,
         },
         color: '#1e293b',
         padding: {
-          top: 10,
-          bottom: 10,
+          top: window.innerWidth < 768 ? 8 : 10,
+          bottom: window.innerWidth < 768 ? 8 : 10,
         },
       },
       tooltip: {
@@ -168,12 +169,18 @@ const MultiMetricChart: React.FC<MultiMetricChartProps> = ({ data, sport }) => {
       x: {
         grid: {
           color: '#e2e8f0',
+          display: window.innerWidth < 768 ? false : true,
         },
         ticks: {
           font: {
             family: 'Inter',
+            size: window.innerWidth < 768 ? 8 : 11,
           },
           color: '#64748b',
+          maxRotation: window.innerWidth < 480 ? 90 : (window.innerWidth < 768 ? 45 : 0),
+          minRotation: window.innerWidth < 480 ? 90 : (window.innerWidth < 768 ? 45 : 0),
+          autoSkip: window.innerWidth < 768,
+          maxTicksLimit: window.innerWidth < 480 ? 6 : undefined,
         },
       },
       y: {
@@ -184,6 +191,7 @@ const MultiMetricChart: React.FC<MultiMetricChartProps> = ({ data, sport }) => {
         ticks: {
           font: {
             family: 'Inter',
+            size: window.innerWidth < 768 ? 9 : 11,
           },
           color: '#64748b',
         },
@@ -202,10 +210,11 @@ const MultiMetricChart: React.FC<MultiMetricChartProps> = ({ data, sport }) => {
         labels: {
           font: {
             family: 'Inter',
-            size: 12,
+            size: window.innerWidth < 768 ? 10 : 12,
             weight: 600,
           },
           color: '#1e293b',
+          padding: window.innerWidth < 768 ? 8 : 10,
         },
       },
       title: {
@@ -213,13 +222,13 @@ const MultiMetricChart: React.FC<MultiMetricChartProps> = ({ data, sport }) => {
         text: metricName,
         font: {
           family: 'Inter',
-          size: 16,
+          size: window.innerWidth < 768 ? 13 : 16,
           weight: 700,
         },
         color: '#1e293b',
         padding: {
-          top: 10,
-          bottom: 10,
+          top: window.innerWidth < 768 ? 8 : 10,
+          bottom: window.innerWidth < 768 ? 8 : 10,
         },
       },
       tooltip: {
@@ -239,12 +248,18 @@ const MultiMetricChart: React.FC<MultiMetricChartProps> = ({ data, sport }) => {
       x: {
         grid: {
           color: '#e2e8f0',
+          display: window.innerWidth < 768 ? false : true,
         },
         ticks: {
           font: {
             family: 'Inter',
+            size: window.innerWidth < 768 ? 8 : 11,
           },
           color: '#64748b',
+          maxRotation: window.innerWidth < 480 ? 90 : (window.innerWidth < 768 ? 45 : 0),
+          minRotation: window.innerWidth < 480 ? 90 : (window.innerWidth < 768 ? 45 : 0),
+          autoSkip: window.innerWidth < 768,
+          maxTicksLimit: window.innerWidth < 480 ? 6 : undefined,
         },
       },
       y: {
@@ -255,6 +270,7 @@ const MultiMetricChart: React.FC<MultiMetricChartProps> = ({ data, sport }) => {
         ticks: {
           font: {
             family: 'Inter',
+            size: window.innerWidth < 768 ? 9 : 11,
           },
           color: '#64748b',
         },
@@ -272,10 +288,11 @@ const MultiMetricChart: React.FC<MultiMetricChartProps> = ({ data, sport }) => {
         labels: {
           font: {
             family: 'Inter',
-            size: 12,
+            size: window.innerWidth < 768 ? 10 : 12,
             weight: 600,
           },
           color: '#1e293b',
+          padding: window.innerWidth < 768 ? 8 : 10,
         },
       },
       tooltip: {
@@ -297,11 +314,17 @@ const MultiMetricChart: React.FC<MultiMetricChartProps> = ({ data, sport }) => {
         ticks: {
           font: {
             family: 'Inter',
+            size: window.innerWidth < 768 ? 9 : 11,
           },
           color: '#64748b',
         },
         grid: {
           color: '#e2e8f0',
+        },
+        pointLabels: {
+          font: {
+            size: window.innerWidth < 768 ? 9 : 11,
+          },
         },
       },
     },
@@ -342,13 +365,14 @@ const MultiMetricChart: React.FC<MultiMetricChartProps> = ({ data, sport }) => {
     return (
       <div>
         {/* Multi-metric comparison chart */}
-        <div style={styles.chartContainer}>
-          <h3 style={styles.chartTitle}>{sportEmoji} All Metrics Comparison</h3>
+        <div style={styles.chartContainer} className="chart-container">
+          <h3 style={styles.chartTitle} className="chart-title">{sportEmoji} All Metrics Comparison</h3>
           <Bar data={createComparisonChart(numericColumns)} options={getBarChartOptions('Overall Performance')} />
         </div>
 
         {/* Individual metric charts */}
         <div
+          className="chart-grid"
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
@@ -361,7 +385,7 @@ const MultiMetricChart: React.FC<MultiMetricChartProps> = ({ data, sport }) => {
             const chartData = createChartData(col, idx);
 
             return (
-              <div key={idx} style={styles.chartContainer}>
+              <div key={idx} style={styles.chartContainer} className="chart-container">
                 {chartType === 'line' ? (
                   <Line data={chartData} options={getLineChartOptions(col.header)} />
                 ) : chartType === 'radar' && data.table.rows.length <= 5 ? (
@@ -379,8 +403,8 @@ const MultiMetricChart: React.FC<MultiMetricChartProps> = ({ data, sport }) => {
 
   // Single metric or too many metrics - show comparison chart only
   return (
-    <div style={styles.chartContainer}>
-      <h3 style={styles.chartTitle}>{sportEmoji} Visual Analysis</h3>
+    <div style={styles.chartContainer} className="chart-container">
+      <h3 style={styles.chartTitle} className="chart-title">{sportEmoji} Visual Analysis</h3>
       <Bar data={createComparisonChart(numericColumns)} options={getBarChartOptions('Statistics Overview')} />
     </div>
   );

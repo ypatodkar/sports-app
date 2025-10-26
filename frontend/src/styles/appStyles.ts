@@ -8,7 +8,7 @@ export const styles: { [key: string]: CSSProperties } = {
     background: 'linear-gradient(to bottom right, #f8fafc, #e0e7ff, #fce7f3)',
     color: '#0f172a',
     minHeight: '100vh',
-    padding: '2rem',
+    padding: 'clamp(0.75rem, 3vw, 2rem)',
   },
 
   // Dashboard Styles

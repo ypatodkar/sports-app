@@ -11,10 +11,10 @@ interface DashboardProps {
 const Dashboard: React.FC<DashboardProps> = ({ onSelectSport }) => {
   return (
     <div>
-      <h1 style={styles.header}>⚡ Sports Stats Hub</h1>
-      <p style={styles.subheader}>AI-powered sports statistics and analysis at your fingertips</p>
+      <h1 style={styles.header} className="app-header">⚡ Sports Stats Hub</h1>
+      <p style={styles.subheader} className="app-subheader">AI-powered sports statistics and analysis at your fingertips</p>
 
-      <div style={styles.dashboardGrid}>
+      <div style={styles.dashboardGrid} className="dashboard-grid">
         {sports.map((sport) => (
           <SportCard
             key={sport}
