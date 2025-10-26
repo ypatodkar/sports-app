@@ -8,7 +8,6 @@ interface TennisSceneProps {
 
 const TennisScene: React.FC<TennisSceneProps> = ({ searchTrigger }) => {
   const ballRef = useRef<THREE.Mesh>(null);
-  const courtRef = useRef<THREE.Group>(null);
   const particlesRef = useRef<THREE.Points>(null);
   const timeRef = useRef(0);
 

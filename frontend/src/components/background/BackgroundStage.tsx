@@ -5,7 +5,6 @@ import { Canvas } from '@react-three/fiber';
 const CricketScene = React.lazy(() => import('./scenes/CricketScene'));
 const SoccerScene = React.lazy(() => import('./scenes/SoccerScene'));
 const TennisScene = React.lazy(() => import('./scenes/TennisScene'));
-const F1Scene = React.lazy(() => import('./scenes/F1Scene'));
 const BasketballScene = React.lazy(() => import('./scenes/BasketballScene'));
 const BaseballScene = React.lazy(() => import('./scenes/BaseballScene'));
 const SwimmingScene = React.lazy(() => import('./scenes/SwimmingScene'));

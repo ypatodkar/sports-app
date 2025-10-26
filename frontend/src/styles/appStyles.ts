@@ -153,18 +153,6 @@ export const styles: { [key: string]: CSSProperties } = {
     maxWidth: '1200px',
     margin: '0 auto',
     height: 'fit-content',
-    '@media (max-width: 1024px)': {
-      gridTemplateColumns: 'repeat(2, 1fr)',
-      gridTemplateRows: 'repeat(4, 1fr)',
-      gap: '16px',
-      padding: '20px',
-    },
-    '@media (max-width: 768px)': {
-      gridTemplateColumns: 'repeat(2, 1fr)',
-      gridTemplateRows: 'repeat(4, 1fr)',
-      gap: '12px',
-      padding: '16px',
-    },
   },
 
   sportCard: {
