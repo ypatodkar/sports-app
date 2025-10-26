@@ -1,0 +1,442 @@
+/* Responsive Overrides for Mobile Devices */
+
+/* Tablet and below (768px) */
+@media (max-width: 768px) {
+  /* Container padding adjustments */
+  [style*="padding: 2rem"] {
+    padding: 1rem !important;
+  }
+  
+  /* Header text sizing */
+  .app-header {
+    font-size: 2rem !important;
+  }
+  
+  .app-subheader {
+    font-size: 1rem !important;
+    margin-bottom: 2rem !important;
+  }
+  
+  /* Sport page header adjustments */
+  .sport-page-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 1rem;
+  }
+  
+  .back-button {
+    margin-right: 0 !important;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .sport-title {
+    font-size: 1.75rem !important;
+  }
+  
+  .sport-page-icon {
+    font-size: 2rem !important;
+  }
+  
+  /* Dashboard grid - smaller cards on tablets */
+  .dashboard-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
+    gap: 1rem !important;
+  }
+  
+  /* Sport cards */
+  .sport-card {
+    padding: 1.5rem !important;
+  }
+  
+  .sport-icon {
+    font-size: 3rem !important;
+  }
+  
+  .sport-name {
+    font-size: 1.25rem !important;
+  }
+  
+  /* Search container */
+  .search-container {
+    padding: 1.5rem !important;
+  }
+  
+  .search-bar {
+    font-size: 1rem !important;
+    padding: 0.875rem 1.25rem !important;
+  }
+  
+  .search-button {
+    padding: 0.875rem 2rem !important;
+    font-size: 1rem !important;
+    width: 100%;
+    margin-top: 0.75rem;
+  }
+  
+  /* Results container */
+  .results-container {
+    padding: 1.5rem !important;
+  }
+  
+  .summary {
+    font-size: 1.1rem !important;
+  }
+  
+  /* Charts */
+  .chart-container {
+    padding: 1rem !important;
+    min-height: 300px !important;
+  }
+  
+  .chart-container canvas {
+    max-height: 400px !important;
+  }
+  
+  .chart-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+  
+  /* Make charts responsive - override minmax */
+  .chart-grid > div {
+    min-width: 0 !important;
+    min-height: 300px !important;
+  }
+  
+  /* Table responsive */
+  .results-table {
+    font-size: 0.875rem !important;
+  }
+  
+  .results-table th,
+  .results-table td {
+    padding: 0.75rem 0.5rem !important;
+  }
+  
+  /* View toggle buttons */
+  .view-toggle-container {
+    flex-wrap: wrap;
+  }
+  
+  .view-toggle-button {
+    font-size: 0.85rem !important;
+    padding: 0.5rem 0.75rem !important;
+  }
+  
+  /* Suggestion chips */
+  .suggestion-chip {
+    font-size: 0.85rem !important;
+    padding: 0.4rem 0.875rem !important;
+  }
+  
+  /* Info box */
+  .info-box {
+    padding: 1.5rem !important;
+  }
+  
+  .info-box-title {
+    font-size: 1.25rem !important;
+  }
+  
+  /* Interesting fact */
+  .interesting-fact {
+    padding: 1.25rem !important;
+    margin-bottom: 1.25rem !important;
+  }
+  
+  /* Video clips */
+  .video-clips-container {
+    padding: 1.5rem !important;
+    margin-top: 1.5rem !important;
+    border-radius: 1rem !important;
+  }
+  
+  .video-clips-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+  
+  /* Override minmax on mobile */
+  .video-clips-grid > div {
+    min-width: 0 !important;
+  }
+  
+  .video-clips-title {
+    font-size: 1.25rem !important;
+  }
+}
+
+/* Mobile phones (480px) */
+@media (max-width: 480px) {
+  /* Container padding - even tighter */
+  [style*="padding: 2rem"],
+  [style*="padding: 1rem"] {
+    padding: 0.75rem !important;
+  }
+  
+  /* Header text sizing */
+  .app-header {
+    font-size: 1.75rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+  
+  .app-subheader {
+    font-size: 0.9rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+  
+  /* Dashboard grid - single column on small phones */
+  .dashboard-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.875rem !important;
+  }
+  
+  /* Sport cards - compact */
+  .sport-card {
+    padding: 1.25rem !important;
+  }
+  
+  .sport-icon {
+    font-size: 2.5rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+  
+  .sport-name {
+    font-size: 1.1rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+  
+  .sport-subtext {
+    font-size: 0.8rem !important;
+  }
+  
+  /* Sport page header */
+  .sport-title {
+    font-size: 1.5rem !important;
+  }
+  
+  .sport-page-icon {
+    font-size: 1.75rem !important;
+  }
+  
+  /* Search elements */
+  .search-container {
+    padding: 1rem !important;
+    border-radius: 1rem !important;
+  }
+  
+  .search-bar {
+    font-size: 0.95rem !important;
+    padding: 0.75rem 1rem !important;
+    border-radius: 0.5rem !important;
+  }
+  
+  .search-button {
+    padding: 0.75rem 1.5rem !important;
+    font-size: 0.95rem !important;
+    border-radius: 0.5rem !important;
+  }
+  
+  /* Back button */
+  .back-button {
+    padding: 0.625rem 1.25rem !important;
+    font-size: 0.9rem !important;
+  }
+  
+  /* Results */
+  .results-container {
+    padding: 1rem !important;
+    border-radius: 1rem !important;
+  }
+  
+  .summary {
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+    padding-bottom: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+  
+  /* Charts */
+  .chart-container {
+    padding: 0.75rem !important;
+    margin-bottom: 1rem !important;
+    border-radius: 0.75rem !important;
+    min-height: 280px !important;
+  }
+  
+  .chart-container canvas {
+    max-height: 350px !important;
+    min-height: 250px !important;
+  }
+  
+  .chart-title {
+    font-size: 1rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+  
+  /* Table - make it more compact */
+  .results-table {
+    font-size: 0.8rem !important;
+  }
+  
+  .results-table th {
+    padding: 0.5rem 0.25rem !important;
+    font-size: 0.75rem !important;
+  }
+  
+  .results-table td {
+    padding: 0.5rem 0.25rem !important;
+  }
+  
+  /* View toggle */
+  .view-toggle-button {
+    font-size: 0.8rem !important;
+    padding: 0.4rem 0.625rem !important;
+  }
+  
+  /* Suggestions */
+  .suggestions-title,
+  .history-title {
+    font-size: 0.85rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  .suggestion-chip {
+    font-size: 0.8rem !important;
+    padding: 0.375rem 0.75rem !important;
+  }
+  
+  /* History items */
+  .history-item {
+    padding: 0.625rem 0.875rem !important;
+    font-size: 0.875rem !important;
+  }
+  
+  /* Info box */
+  .info-box {
+    padding: 1rem !important;
+    border-radius: 1rem !important;
+  }
+  
+  .info-box-title {
+    font-size: 1.1rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+  
+  /* Loading and error states */
+  .loading-container,
+  .error-message {
+    padding: 1.5rem !important;
+    font-size: 1rem !important;
+  }
+  
+  /* Interesting fact */
+  .interesting-fact {
+    padding: 1rem !important;
+    margin-bottom: 1rem !important;
+    border-radius: 0.75rem !important;
+  }
+  
+  /* Video clips */
+  .video-clips-container {
+    padding: 1rem !important;
+    margin-top: 1rem !important;
+  }
+  
+  .video-clips-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.875rem !important;
+  }
+  
+  .video-clips-title {
+    font-size: 1.1rem !important;
+  }
+  
+  .video-clip-card {
+    border-radius: 0.75rem !important;
+  }
+}
+
+/* Very small phones (360px) */
+@media (max-width: 360px) {
+  .app-header {
+    font-size: 1.5rem !important;
+  }
+  
+  .sport-icon {
+    font-size: 2rem !important;
+  }
+  
+  .sport-name {
+    font-size: 1rem !important;
+  }
+  
+  .search-bar,
+  .search-button {
+    font-size: 0.875rem !important;
+  }
+  
+  /* Extra small chart adjustments */
+  .chart-container {
+    padding: 0.5rem !important;
+    min-height: 250px !important;
+  }
+  
+  .chart-container canvas {
+    max-height: 300px !important;
+    min-height: 220px !important;
+  }
+}
+
+/* Landscape orientation tweaks for mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+  .app-header {
+    font-size: 1.5rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+  
+  .app-subheader {
+    margin-bottom: 1rem !important;
+  }
+  
+  .dashboard-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
+  }
+  
+  .sport-card {
+    padding: 1rem !important;
+  }
+  
+  .sport-icon {
+    font-size: 2rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) and (pointer: coarse) {
+  /* Increase button tap targets for touch devices */
+  button,
+  .sport-card,
+  .suggestion-chip,
+  .history-item {
+    min-height: 44px; /* Apple's recommended minimum tap target size */
+  }
+  
+  /* Remove hover effects on touch devices */
+  button:hover,
+  .sport-card:hover,
+  .suggestion-chip:hover {
+    transform: none !important;
+  }
+  
+  /* Add active state for better feedback */
+  button:active,
+  .sport-card:active,
+  .suggestion-chip:active {
+    opacity: 0.7;
+    transform: scale(0.98);
+  }
+}
+

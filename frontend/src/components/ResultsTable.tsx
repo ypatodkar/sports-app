@@ -11,8 +11,8 @@ const ResultsTable: React.FC<ResultsTableProps> = ({ data }) => {
 
   return (
     <div>
-      <h3 style={styles.chartTitle}>Detailed Statistics</h3>
-      <table style={styles.table}>
+      <h3 style={styles.chartTitle} className="chart-title">Detailed Statistics</h3>
+      <table style={styles.table} className="results-table">
         <thead>
           <tr>
             {data.table.headers.map((header, index) => (

@@ -81,9 +81,10 @@ const SportPage: React.FC<SportPageProps> = ({ sport, onBack }) => {
   return (
     <div style={styles.sportPageContainer}>
       {/* Header */}
-      <div style={styles.sportPageHeader}>
+      <div style={styles.sportPageHeader} className="sport-page-header">
         <button
           style={styles.backButton}
+          className="back-button"
           onClick={onBack}
           onMouseEnter={(e) => {
             e.currentTarget.style.backgroundColor = '#f8fafc';
@@ -97,8 +98,8 @@ const SportPage: React.FC<SportPageProps> = ({ sport, onBack }) => {
           ← Back
         </button>
         <div style={styles.sportTitleContainer}>
-          <span style={styles.sportPageIcon}>{config.icon}</span>
-          <h2 style={styles.sportTitle}>{sport}</h2>
+          <span style={styles.sportPageIcon} className="sport-page-icon">{config.icon}</span>
+          <h2 style={styles.sportTitle} className="sport-title">{sport}</h2>
         </div>
       </div>
 
@@ -123,11 +124,11 @@ const SportPage: React.FC<SportPageProps> = ({ sport, onBack }) => {
       {/* Results */}
       {results && !isLoading && (
         <>
-          <div style={styles.resultsContainer}>
+          <div style={styles.resultsContainer} className="results-container">
             {/* Interesting Fact */}
             {results.interesting_fact && <InterestingFact fact={results.interesting_fact} />}
             
-            <p style={styles.summary}>📊 {results.summary}</p>
+            <p style={styles.summary} className="summary">📊 {results.summary}</p>
 
             {/* View Toggle */}
             <ViewToggle viewMode={viewMode} setViewMode={setViewMode} />

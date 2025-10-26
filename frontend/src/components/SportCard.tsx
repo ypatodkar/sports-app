@@ -11,6 +11,7 @@ interface SportCardProps {
 const SportCard: React.FC<SportCardProps> = ({ sport, config, onSelect }) => {
   return (
     <div
+      className="sport-card"
       style={{
         ...styles.sportCard,
         background: config.gradient,
@@ -25,9 +26,9 @@ const SportCard: React.FC<SportCardProps> = ({ sport, config, onSelect }) => {
         e.currentTarget.style.boxShadow = '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)';
       }}
     >
-      <span style={styles.sportIcon}>{config.icon}</span>
-      <div style={{ ...styles.sportName, color: '#ffffff' }}>{sport}</div>
-      <div style={{ ...styles.sportSubtext, color: 'rgba(255, 255, 255, 0.9)' }}>
+      <span style={styles.sportIcon} className="sport-icon">{config.icon}</span>
+      <div style={{ ...styles.sportName, color: '#ffffff' }} className="sport-name">{sport}</div>
+      <div style={{ ...styles.sportSubtext, color: 'rgba(255, 255, 255, 0.9)' }} className="sport-subtext">
         Explore {sport.toLowerCase()} stats
       </div>
     </div>

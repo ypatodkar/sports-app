@@ -12,11 +12,12 @@ const SearchHistory: React.FC<SearchHistoryProps> = ({ history, onSelect }) => {
 
   return (
     <div style={styles.historyContainer}>
-      <div style={styles.historyTitle}>🕐 Recent Searches:</div>
+      <div style={styles.historyTitle} className="history-title">🕐 Recent Searches:</div>
       {history.map((item, idx) => (
         <div
           key={idx}
           style={styles.historyItem}
+          className="history-item"
           onClick={() => onSelect(item.query)}
           onMouseEnter={(e) => {
             e.currentTarget.style.backgroundColor = '#e0e7ff';

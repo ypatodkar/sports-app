@@ -7,6 +7,7 @@ interface InterestingFactProps {
 const InterestingFact: React.FC<InterestingFactProps> = ({ fact }) => {
   return (
     <div
+      className="interesting-fact"
       style={{
         backgroundColor: '#fffbeb',
         border: '2px solid #fbbf24',

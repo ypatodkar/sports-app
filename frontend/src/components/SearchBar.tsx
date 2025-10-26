@@ -36,10 +36,11 @@ const SearchBar: React.FC<SearchBarProps> = ({
   };
 
   return (
-    <div style={styles.searchContainer}>
+    <div style={styles.searchContainer} className="search-container">
       <input
         type="text"
         style={styles.searchBar}
+        className="search-bar"
         placeholder={`Search ${sport} stats, players, matches...`}
         value={query}
         onChange={(e) => setQuery(e.target.value)}
@@ -48,6 +49,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
         onBlur={(e) => (e.currentTarget.style.borderColor = '#e2e8f0')}
       />
       <button
+        className="search-button"
         style={{
           ...styles.searchButton,
           opacity: isLoading ? 0.7 : 1,

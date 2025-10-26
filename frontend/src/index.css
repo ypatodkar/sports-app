@@ -106,4 +106,22 @@ input:focus-visible {
   body {
     font-size: 14px;
   }
+  
+  /* Make images and tables responsive */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 13px;
+  }
 }

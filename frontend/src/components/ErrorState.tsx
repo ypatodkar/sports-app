@@ -7,7 +7,7 @@ interface ErrorStateProps {
 
 const ErrorState: React.FC<ErrorStateProps> = ({ message }) => {
   return (
-    <div style={styles.errorMessage}>
+    <div style={styles.errorMessage} className="error-message">
       <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>⚠️</div>
       {message}
     </div>

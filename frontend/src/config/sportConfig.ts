@@ -4,7 +4,7 @@ import type { SportConfig } from '../types';
 export const sportConfig: Record<string, SportConfig> = {
   Cricket: { 
     icon: '🏏', 
-    gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    gradient: '#ddd6fe',
     suggestions: [
       'Virat Kohli stats', 
       'India vs Australia 2023', 
@@ -14,7 +14,7 @@ export const sportConfig: Record<string, SportConfig> = {
   },
   Soccer: { 
     icon: '⚽', 
-    gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+    gradient: '#fecaca',
     suggestions: [
       'Messi career goals', 
       'Premier League table', 
@@ -24,7 +24,7 @@ export const sportConfig: Record<string, SportConfig> = {
   },
   Tennis: { 
     icon: '🎾', 
-    gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+    gradient: '#bfdbfe',
     suggestions: [
       'Novak Djokovic Grand Slams', 
       'US Open 2024', 
@@ -34,7 +34,7 @@ export const sportConfig: Record<string, SportConfig> = {
   },
   F1: { 
     icon: '🏎️', 
-    gradient: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+    gradient: '#fcd34d',
     suggestions: [
       'Max Verstappen wins', 
       'Monaco GP results', 
@@ -44,7 +44,7 @@ export const sportConfig: Record<string, SportConfig> = {
   },
   Basketball: { 
     icon: '🏀', 
-    gradient: 'linear-gradient(135deg, #30cfd0 0%, #330867 100%)',
+    gradient: '#a5f3fc',
     suggestions: [
       'LeBron James stats', 
       'NBA Finals 2024', 
