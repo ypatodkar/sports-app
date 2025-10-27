@@ -80,19 +80,24 @@ const ChartView: React.FC<ChartViewProps> = ({ data, chartType = 'bar' }) => {
     };
   };
 
+  const isMobile = window.innerWidth <= 768;
+  const fontSize = isMobile ? 10 : 12;
+
   const chartOptions: ChartOptions<'bar' | 'line' | 'pie'> = {
     responsive: true,
-    maintainAspectRatio: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: 'top' as const,
         labels: {
           font: {
             family: 'Inter',
-            size: 12,
+            size: fontSize,
             weight: 600,
           },
           color: '#1e293b',
+          padding: isMobile ? 8 : 10,
+          boxWidth: isMobile ? 30 : 40,
         },
       },
       title: {
@@ -124,8 +129,11 @@ const ChartView: React.FC<ChartViewProps> = ({ data, chartType = 'bar' }) => {
           ticks: {
             font: {
               family: 'Inter',
+              size: isMobile ? 9 : 11,
             },
             color: '#64748b',
+            maxRotation: isMobile ? 45 : 0,
+            minRotation: isMobile ? 45 : 0,
           },
         },
         y: {
@@ -136,6 +144,7 @@ const ChartView: React.FC<ChartViewProps> = ({ data, chartType = 'bar' }) => {
           ticks: {
             font: {
               family: 'Inter',
+              size: isMobile ? 9 : 11,
             },
             color: '#64748b',
           },

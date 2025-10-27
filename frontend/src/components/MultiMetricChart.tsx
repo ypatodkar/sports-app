@@ -121,191 +121,223 @@ const MultiMetricChart: React.FC<MultiMetricChartProps> = ({ data, sport }) => {
   };
 
   // Bar chart options
-  const getBarChartOptions = (metricName: string): ChartOptions<'bar'> => ({
-    responsive: true,
-    maintainAspectRatio: true,
-    plugins: {
-      legend: {
-        display: true,
-        position: 'top' as const,
-        labels: {
+  const getBarChartOptions = (metricName: string): ChartOptions<'bar'> => {
+    const isMobile = window.innerWidth <= 768;
+    const fontSize = isMobile ? 10 : 12;
+    const titleSize = isMobile ? 14 : 16;
+    
+    return {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: true,
+          position: 'top' as const,
+          labels: {
+            font: {
+              family: 'Inter',
+              size: fontSize,
+              weight: 600,
+            },
+            color: '#1e293b',
+            padding: isMobile ? 8 : 10,
+            boxWidth: isMobile ? 30 : 40,
+          },
+        },
+        title: {
+          display: true,
+          text: metricName,
           font: {
             family: 'Inter',
-            size: 12,
-            weight: 600,
+            size: titleSize,
+            weight: 700,
           },
           color: '#1e293b',
+          padding: {
+            top: isMobile ? 8 : 10,
+            bottom: isMobile ? 8 : 10,
+          },
         },
-      },
-      title: {
-        display: true,
-        text: metricName,
-        font: {
-          family: 'Inter',
-          size: 16,
-          weight: 700,
-        },
-        color: '#1e293b',
-        padding: {
-          top: 10,
-          bottom: 10,
-        },
-      },
-      tooltip: {
-        callbacks: {
-          label: function (context: any) {
-            let label = context.dataset.label || '';
-            if (label) {
-              label += ': ';
-            }
-            label += new Intl.NumberFormat('en-US').format(context.parsed.y);
-            return label;
+        tooltip: {
+          callbacks: {
+            label: function (context: any) {
+              let label = context.dataset.label || '';
+              if (label) {
+                label += ': ';
+              }
+              label += new Intl.NumberFormat('en-US').format(context.parsed.y);
+              return label;
+            },
           },
         },
       },
-    },
-    scales: {
-      x: {
-        grid: {
-          color: '#e2e8f0',
-        },
-        ticks: {
-          font: {
-            family: 'Inter',
+      scales: {
+        x: {
+          grid: {
+            color: '#e2e8f0',
           },
-          color: '#64748b',
+          ticks: {
+            font: {
+              family: 'Inter',
+              size: isMobile ? 9 : 11,
+            },
+            color: '#64748b',
+            maxRotation: isMobile ? 45 : 0,
+            minRotation: isMobile ? 45 : 0,
+          },
+        },
+        y: {
+          beginAtZero: true,
+          grid: {
+            color: '#e2e8f0',
+          },
+          ticks: {
+            font: {
+              family: 'Inter',
+              size: isMobile ? 9 : 11,
+            },
+            color: '#64748b',
+          },
         },
       },
-      y: {
-        beginAtZero: true,
-        grid: {
-          color: '#e2e8f0',
-        },
-        ticks: {
-          font: {
-            family: 'Inter',
-          },
-          color: '#64748b',
-        },
-      },
-    },
-  });
+    };
+  };
 
   // Line chart options
-  const getLineChartOptions = (metricName: string): ChartOptions<'line'> => ({
-    responsive: true,
-    maintainAspectRatio: true,
-    plugins: {
-      legend: {
-        display: true,
-        position: 'top' as const,
-        labels: {
+  const getLineChartOptions = (metricName: string): ChartOptions<'line'> => {
+    const isMobile = window.innerWidth <= 768;
+    const fontSize = isMobile ? 10 : 12;
+    const titleSize = isMobile ? 14 : 16;
+    
+    return {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: true,
+          position: 'top' as const,
+          labels: {
+            font: {
+              family: 'Inter',
+              size: fontSize,
+              weight: 600,
+            },
+            color: '#1e293b',
+            padding: isMobile ? 8 : 10,
+            boxWidth: isMobile ? 30 : 40,
+          },
+        },
+        title: {
+          display: true,
+          text: metricName,
           font: {
             family: 'Inter',
-            size: 12,
-            weight: 600,
+            size: titleSize,
+            weight: 700,
           },
           color: '#1e293b',
+          padding: {
+            top: isMobile ? 8 : 10,
+            bottom: isMobile ? 8 : 10,
+          },
         },
-      },
-      title: {
-        display: true,
-        text: metricName,
-        font: {
-          family: 'Inter',
-          size: 16,
-          weight: 700,
-        },
-        color: '#1e293b',
-        padding: {
-          top: 10,
-          bottom: 10,
-        },
-      },
-      tooltip: {
-        callbacks: {
-          label: function (context: any) {
-            let label = context.dataset.label || '';
-            if (label) {
-              label += ': ';
-            }
-            label += new Intl.NumberFormat('en-US').format(context.parsed.y);
-            return label;
+        tooltip: {
+          callbacks: {
+            label: function (context: any) {
+              let label = context.dataset.label || '';
+              if (label) {
+                label += ': ';
+              }
+              label += new Intl.NumberFormat('en-US').format(context.parsed.y);
+              return label;
+            },
           },
         },
       },
-    },
-    scales: {
-      x: {
-        grid: {
-          color: '#e2e8f0',
-        },
-        ticks: {
-          font: {
-            family: 'Inter',
+      scales: {
+        x: {
+          grid: {
+            color: '#e2e8f0',
           },
-          color: '#64748b',
-        },
-      },
-      y: {
-        beginAtZero: true,
-        grid: {
-          color: '#e2e8f0',
-        },
-        ticks: {
-          font: {
-            family: 'Inter',
+          ticks: {
+            font: {
+              family: 'Inter',
+              size: isMobile ? 9 : 11,
+            },
+            color: '#64748b',
+            maxRotation: isMobile ? 45 : 0,
+            minRotation: isMobile ? 45 : 0,
           },
-          color: '#64748b',
         },
-      },
-    },
-  });
-
-  const radarOptions: ChartOptions<'radar'> = {
-    responsive: true,
-    maintainAspectRatio: true,
-    plugins: {
-      legend: {
-        display: true,
-        position: 'top' as const,
-        labels: {
-          font: {
-            family: 'Inter',
-            size: 12,
-            weight: 600,
+        y: {
+          beginAtZero: true,
+          grid: {
+            color: '#e2e8f0',
           },
-          color: '#1e293b',
-        },
-      },
-      tooltip: {
-        callbacks: {
-          label: function (context: any) {
-            let label = context.dataset.label || '';
-            if (label) {
-              label += ': ';
-            }
-            label += new Intl.NumberFormat('en-US').format(context.parsed.r);
-            return label;
+          ticks: {
+            font: {
+              family: 'Inter',
+              size: isMobile ? 9 : 11,
+            },
+            color: '#64748b',
           },
         },
       },
-    },
-    scales: {
-      r: {
-        beginAtZero: true,
-        ticks: {
-          font: {
-            family: 'Inter',
-          },
-          color: '#64748b',
-        },
-        grid: {
-          color: '#e2e8f0',
-        },
-      },
-    },
+    };
   };
+
+  const radarOptions: ChartOptions<'radar'> = (() => {
+    const isMobile = window.innerWidth <= 768;
+    const fontSize = isMobile ? 10 : 12;
+    
+    return {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: true,
+          position: 'top' as const,
+          labels: {
+            font: {
+              family: 'Inter',
+              size: fontSize,
+              weight: 600,
+            },
+            color: '#1e293b',
+            padding: isMobile ? 8 : 10,
+            boxWidth: isMobile ? 30 : 40,
+          },
+        },
+        tooltip: {
+          callbacks: {
+            label: function (context: any) {
+              let label = context.dataset.label || '';
+              if (label) {
+                label += ': ';
+              }
+              label += new Intl.NumberFormat('en-US').format(context.parsed.r);
+              return label;
+            },
+          },
+        },
+      },
+      scales: {
+        r: {
+          beginAtZero: true,
+          ticks: {
+            font: {
+              family: 'Inter',
+              size: isMobile ? 9 : 11,
+            },
+            color: '#64748b',
+          },
+          grid: {
+            color: '#e2e8f0',
+          },
+        },
+      },
+    };
+  })();
 
   // Create comparison chart with multiple metrics
   const createComparisonChart = (columns: { index: number; header: string; values: number[] }[]) => {
@@ -351,10 +383,11 @@ const MultiMetricChart: React.FC<MultiMetricChartProps> = ({ data, sport }) => {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 400px), 1fr))',
             gap: '1.5rem',
             marginTop: '1.5rem',
           }}
+          className="metrics-grid"
         >
           {numericColumns.map((col, idx) => {
             const chartType = getChartTypeForMetric(col.header);
