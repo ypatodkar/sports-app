@@ -125,19 +125,23 @@ export const logSearchQuery = async (req, res) => {
   try {
     const { uid, sport, query, hasError } = req.body;
 
-    if (!uid || !sport || !query) {
+    // uid is optional now (for anonymous users)
+    if (!sport || !query) {
       return res.status(400).json({
-        error: 'Missing required fields: uid, sport, and query'
+        error: 'Missing required fields: sport and query'
       });
     }
 
-    // Insert query
+    // Insert query (uid can be null for anonymous users)
     await pool.query(`
       INSERT INTO search_queries (user_uid, sport, query_text, has_error)
       VALUES ($1, $2, $3, $4)
-    `, [uid, sport, query, hasError || false]);
+    `, [uid || null, sport, query, hasError || false]);
 
-    console.log(`✅ Query logged: ${query} for ${sport} by ${uid}`);
+    const logMessage = uid 
+      ? `✅ Query logged: ${query} for ${sport} by user ${uid}`
+      : `✅ Anonymous query logged: ${query} for ${sport}`;
+    console.log(logMessage);
 
     return res.status(201).json({
       message: 'Query logged successfully'

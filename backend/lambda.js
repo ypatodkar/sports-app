@@ -4,7 +4,15 @@ import express from 'express';
 import cors from 'cors';
 import 'dotenv/config';
 import fetch from 'node-fetch';
-import { logUserLogin, getAllUsers, getUserStats } from './userController.js';
+import {
+  logUserLogin,
+  getAllUsers,
+  getUserStats,
+  logSearchQuery,
+  getPopularQueries,
+  getUserSearchHistory,
+  getQueryAnalytics
+} from './userController.js';
 import pool from './database.js';
 
 const app = express();
@@ -17,6 +25,12 @@ app.use(express.json());
 app.post('/api/users/login', logUserLogin);
 app.get('/api/users', getAllUsers);
 app.get('/api/users/stats', getUserStats);
+
+// Search query tracking endpoints
+app.post('/api/queries/log', logSearchQuery);
+app.get('/api/queries/popular', getPopularQueries);
+app.get('/api/queries/user/:uid', getUserSearchHistory);
+app.get('/api/queries/analytics', getQueryAnalytics);
 
 // Sports search endpoint
 app.post('/api/search', async (req, res) => {
@@ -146,9 +160,25 @@ app.post('/api/search', async (req, res) => {
     }
     
     // Extract the text content from Gemini's response
-    const geminiTextResponse = responseData.candidates[0].content.parts[0].text;
+    let geminiTextResponse = responseData.candidates[0].content.parts[0].text;
     
-    // Because we instructed Gemini to return JSON, we can parse it directly
+    // Clean the response - remove markdown code blocks if present
+    geminiTextResponse = geminiTextResponse.trim();
+    
+    // Remove ```json and ``` if present
+    if (geminiTextResponse.startsWith('```json')) {
+      geminiTextResponse = geminiTextResponse.replace(/^```json\s*\n?/, '').replace(/\n?```\s*$/, '');
+    } else if (geminiTextResponse.startsWith('```')) {
+      geminiTextResponse = geminiTextResponse.replace(/^```\s*\n?/, '').replace(/\n?```\s*$/, '');
+    }
+    
+    // Try to find JSON object if there's extra text
+    const jsonMatch = geminiTextResponse.match(/\{[\s\S]*\}/);
+    if (jsonMatch) {
+      geminiTextResponse = jsonMatch[0];
+    }
+    
+    // Parse the cleaned JSON
     const parsedData = JSON.parse(geminiTextResponse);
     
     // Send the structured data back to the React app

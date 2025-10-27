@@ -7,9 +7,9 @@ import SportPage from './components/SportPage';
 import Login from './components/Login';
 
 const App: React.FC = () => {
-  const { user, loading } = useAuth();
+  const { loading } = useAuth();
 
-  // Show loading state
+  // Show loading state while checking authentication
   if (loading) {
     return (
       <div style={{
@@ -27,18 +27,14 @@ const App: React.FC = () => {
     );
   }
 
-  // Show login if not authenticated
-  if (!user) {
-    return <Login />;
-  }
-
-  // Show app if authenticated
+  // Allow access to app regardless of authentication status
   return (
     <BrowserRouter>
       <div style={styles.container}>
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/sport/:sportName" element={<SportPage />} />
+          <Route path="/login" element={<Login />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>

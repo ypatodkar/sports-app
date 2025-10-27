@@ -1,12 +1,63 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
 const UserProfile: React.FC = () => {
-  const { user, signOut } = useAuth();
+  const { user, signOut, signInWithGoogle } = useAuth();
+  const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  if (!user) return null;
+  // Show login button if user is not authenticated
+  if (!user) {
+    return (
+      <button
+        onClick={async () => {
+          try {
+            setLoading(true);
+            await signInWithGoogle();
+          } catch (error) {
+            console.error('Error signing in:', error);
+          } finally {
+            setLoading(false);
+          }
+        }}
+        disabled={loading}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.5rem',
+          padding: '0.625rem 1.25rem',
+          backgroundColor: 'white',
+          border: '2px solid #667eea',
+          borderRadius: '12px',
+          cursor: loading ? 'not-allowed' : 'pointer',
+          fontSize: '0.95rem',
+          fontWeight: '600',
+          color: '#667eea',
+          transition: 'all 0.2s',
+          opacity: loading ? 0.7 : 1,
+        }}
+        onMouseEnter={(e) => {
+          if (!loading) {
+            e.currentTarget.style.backgroundColor = '#667eea';
+            e.currentTarget.style.color = 'white';
+            e.currentTarget.style.transform = 'translateY(-2px)';
+            e.currentTarget.style.boxShadow = '0 4px 12px rgba(102, 126, 234, 0.3)';
+          }
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.backgroundColor = 'white';
+          e.currentTarget.style.color = '#667eea';
+          e.currentTarget.style.transform = 'translateY(0)';
+          e.currentTarget.style.boxShadow = 'none';
+        }}
+      >
+        <span>🔐</span>
+        <span>{loading ? 'Signing in...' : 'Sign In'}</span>
+      </button>
+    );
+  }
 
   const handleSignOut = async () => {
     try {

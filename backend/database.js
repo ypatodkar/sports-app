@@ -35,10 +35,11 @@ const initializeDatabase = async () => {
     await pool.query(`CREATE INDEX IF NOT EXISTS idx_uid ON users(uid)`);
 
     // Create search_queries table to track all user searches
+    // user_uid is nullable to allow anonymous searches
     await pool.query(`
       CREATE TABLE IF NOT EXISTS search_queries (
         id SERIAL PRIMARY KEY,
-        user_uid VARCHAR(255) NOT NULL,
+        user_uid VARCHAR(255),
         sport VARCHAR(50) NOT NULL,
         query_text TEXT NOT NULL,
         has_error BOOLEAN DEFAULT false,
@@ -51,6 +52,15 @@ const initializeDatabase = async () => {
     await pool.query(`CREATE INDEX IF NOT EXISTS idx_queries_user ON search_queries(user_uid)`);
     await pool.query(`CREATE INDEX IF NOT EXISTS idx_queries_sport ON search_queries(sport)`);
     await pool.query(`CREATE INDEX IF NOT EXISTS idx_queries_created ON search_queries(created_at)`);
+
+    // Migration: Make user_uid nullable for existing tables (safe to run multiple times)
+    try {
+      await pool.query(`ALTER TABLE search_queries ALTER COLUMN user_uid DROP NOT NULL`);
+      console.log('✅ Migration: user_uid column is now nullable');
+    } catch (migrationError) {
+      // Column is already nullable or doesn't need migration
+      console.log('ℹ️  user_uid column migration skipped (already nullable or does not exist)');
+    }
 
     console.log('✅ PostgreSQL database initialized successfully');
   } catch (error) {
