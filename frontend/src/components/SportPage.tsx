@@ -4,6 +4,7 @@ import { styles } from '../styles/appStyles';
 import { sportConfig } from '../config/sportConfig';
 import { videoAssets } from '../config/assetConfig';
 import type { StatsData, SearchHistory, ViewMode } from '../types';
+import { BACKEND_URL } from '../config/firebase';
 import VideoBackground from './VideoBackground';
 import SearchBar from './SearchBar';
 import LoadingState from './LoadingState';
@@ -51,7 +52,7 @@ const SportPage: React.FC = () => {
     setResults(null);
 
     try {
-      const response = await fetch('https://crkq5nwhr5.execute-api.us-east-2.amazonaws.com/default/sports-app-backend', {
+      const response = await fetch(`${BACKEND_URL}/api/search`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

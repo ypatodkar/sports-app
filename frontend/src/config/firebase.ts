@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 
-// Firebase configuration (Only for Google OAuth - user data goes to SQLite backend)
+// Firebase configuration (Only for Google OAuth - user data goes to PostgreSQL RDS backend)
 // TODO: Replace with your Firebase project credentials
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "YOUR_API_KEY",
@@ -15,7 +15,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// Initialize Firebase Auth only (no Firestore needed - using SQLite backend)
+// Initialize Firebase Auth only (no Firestore needed - using PostgreSQL RDS backend)
 export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
 
