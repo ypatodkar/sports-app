@@ -420,6 +420,9 @@ export const styles: { [key: string]: CSSProperties } = {
     background: '#f5f5f7',
     border: '1px solid rgba(0, 0, 0, 0.06)',
     borderRadius: '16px',
+    height: '450px',
+    width: '100%',
+    position: 'relative' as const,
   },
 
   chartTitle: {
