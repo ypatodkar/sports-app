@@ -49,7 +49,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
 
       const data = await response.json();
-      console.log('✅ User logged to SQLite:', data);
+      console.log('✅ User logged to PostgreSQL:', data);
       
       if (data.isNewUser) {
         console.log('🆕 New user registered:', user.email);

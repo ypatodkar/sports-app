@@ -34,6 +34,24 @@ const initializeDatabase = async () => {
     // Create index on uid for faster lookups
     await pool.query(`CREATE INDEX IF NOT EXISTS idx_uid ON users(uid)`);
 
+    // Create search_queries table to track all user searches
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS search_queries (
+        id SERIAL PRIMARY KEY,
+        user_uid VARCHAR(255) NOT NULL,
+        sport VARCHAR(50) NOT NULL,
+        query_text TEXT NOT NULL,
+        has_error BOOLEAN DEFAULT false,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_uid) REFERENCES users(uid) ON DELETE CASCADE
+      )
+    `);
+
+    // Create indexes for faster analytics queries
+    await pool.query(`CREATE INDEX IF NOT EXISTS idx_queries_user ON search_queries(user_uid)`);
+    await pool.query(`CREATE INDEX IF NOT EXISTS idx_queries_sport ON search_queries(sport)`);
+    await pool.query(`CREATE INDEX IF NOT EXISTS idx_queries_created ON search_queries(created_at)`);
+
     console.log('✅ PostgreSQL database initialized successfully');
   } catch (error) {
     console.error('❌ Error initializing database:', error);
