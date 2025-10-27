@@ -1,21 +1,17 @@
-// 1. Import necessary packages
+// Lambda handler for AWS Lambda deployment
+import serverlessHttp from 'serverless-http';
 import express from 'express';
 import cors from 'cors';
-import 'dotenv/config'; // Loads .env file variables
-import fetch from 'node-fetch'; // To make API calls
+import 'dotenv/config';
+import fetch from 'node-fetch';
 import { logUserLogin, getAllUsers, getUserStats } from './userController.js';
-import './database.js'; // Initialize database
+import pool from './database.js';
 
-// 2. Set up the Express app
 const app = express();
-const PORT = process.env.PORT || 5001;
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
-// 3. Use middlewares
+// Middlewares
 app.use(cors());
 app.use(express.json());
-
-// 4. Define your API endpoints
 
 // User authentication endpoints
 app.post('/api/users/login', logUserLogin);
@@ -24,8 +20,10 @@ app.get('/api/users/stats', getUserStats);
 
 // Sports search endpoint
 app.post('/api/search', async (req, res) => {
+  const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+  
   if (!GEMINI_API_KEY) {
-    return res.status(500).json({ error: 'API key not found. Please add it to your .env file.' });
+    return res.status(500).json({ error: 'API key not found. Please add it to Lambda environment variables.' });
   }
 
   const { query, sport } = req.body;
@@ -100,70 +98,6 @@ app.post('/api/search', async (req, res) => {
       - For tournament queries: Include winners, top performers, notable records
       - For comparison queries: Create side-by-side comparison tables
       - For "not found" scenarios: Return helpful message in summary with empty table: { "headers": [], "rows": [] }
-
-      EXAMPLE RESPONSES:
-
-      Query: "Lionel Messi career goals"
-      {
-        "summary": "Lionel Messi has scored over 800 career goals across club and international football, making him one of the highest scorers in history.",
-        "interesting_fact": "Messi scored 91 goals in the calendar year 2012, breaking Gerd Müller's 40-year-old record of 85 goals - a feat many consider unbreakable.",
-        "video_clips": [
-          {
-            "title": "Messi All 91 Goals in 2012",
-            "description": "Watch all 91 goals Messi scored in the record-breaking 2012 calendar year",
-            "video_url": "https://www.youtube.com/watch?v=5vmm-xCq4To"
-          },
-          {
-            "title": "Messi Top 30 Goals",
-            "description": "A compilation of Messi's most spectacular career goals",
-            "video_url": "https://www.youtube.com/watch?v=nFg0N_JesWs"
-          },
-          {
-            "title": "Messi World Cup 2022 Highlights",
-            "description": "Messi's journey to winning the 2022 World Cup with Argentina",
-            "video_url": "https://www.youtube.com/watch?v=WchwNV7TN-4"
-          }
-        ],
-        "table": {
-          "headers": ["Competition", "Goals", "Matches", "Goals per Match"],
-          "rows": [
-            ["Barcelona", "672", "778", "0.86"],
-            ["PSG", "32", "75", "0.43"],
-            ["Inter Miami", "20", "23", "0.87"],
-            ["Argentina", "106", "180", "0.59"],
-            ["Total", "830+", "1056+", "0.79"]
-          ]
-        }
-      }
-
-      Query: "NBA Finals 2024"
-      {
-        "summary": "The Boston Celtics won the 2024 NBA Finals, defeating the Dallas Mavericks 4-1 in the series.",
-        "interesting_fact": "This was the Celtics' 18th championship, breaking their tie with the Lakers for the most NBA titles in history. Jaylen Brown became Finals MVP, averaging 20.8 points per game.",
-        "video_clips": [
-          {
-            "title": "Celtics Win 2024 NBA Finals",
-            "description": "Game 5 highlights as the Celtics clinch championship",
-            "video_url": "https://www.youtube.com/watch?v=K_cHR3xXPFg"
-          },
-          {
-            "title": "Jaylen Brown Finals MVP",
-            "description": "Jaylen Brown's best moments from the Finals series",
-            "video_url": "https://www.youtube.com/watch?v=pL9wH2pGXGQ"
-          }
-        ],
-        "table": {
-          "headers": ["Game", "Result", "Date", "MVP"],
-          "rows": [
-            ["Game 1", "Celtics 107-89", "June 6", "Jaylen Brown"],
-            ["Game 2", "Celtics 105-98", "June 9", "Jaylen Brown"],
-            ["Game 3", "Mavericks 99-106", "June 12", "Kyrie Irving"],
-            ["Game 4", "Celtics 122-84", "June 14", "Jaylen Brown"],
-            ["Game 5", "Celtics 106-88", "June 17", "Jaylen Brown"],
-            ["Series MVP", "Jaylen Brown", "-", "-"]
-          ]
-        }
-      }
     `;
 
     const userQuery = `Analyze the following query for the sport: "${sport}". The user's query is: "${query}"`;
@@ -226,7 +160,24 @@ app.post('/api/search', async (req, res) => {
   }
 });
 
-// 5. Start the server
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+// Health check endpoint
+app.get('/health', async (req, res) => {
+  try {
+    // Test database connection
+    await pool.query('SELECT 1');
+    res.json({ status: 'healthy', database: 'connected', timestamp: new Date().toISOString() });
+  } catch (error) {
+    res.status(500).json({ status: 'unhealthy', database: 'disconnected', error: error.message });
+  }
 });
+
+// Graceful shutdown for connection pool
+process.on('SIGTERM', async () => {
+  console.log('SIGTERM received, closing database connections...');
+  await pool.end();
+  process.exit(0);
+});
+
+// Export Lambda handler
+export const handler = serverlessHttp(app);
+
