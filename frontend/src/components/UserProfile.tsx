@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
 const UserProfile: React.FC = () => {
   const { user, signOut, signInWithGoogle } = useAuth();
-  const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const [loading, setLoading] = useState(false);
 

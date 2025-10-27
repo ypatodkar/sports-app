@@ -75,8 +75,6 @@ const SportPage: React.FC = () => {
     setError(null);
     setResults(null);
 
-    let searchSuccessful = false;
-
     try {
       const response = await fetch(`${BACKEND_URL}/api/search`, {
         method: 'POST',
@@ -92,7 +90,6 @@ const SportPage: React.FC = () => {
 
       const data: StatsData = await response.json();
       setResults(data);
-      searchSuccessful = true;
 
       // Add to search history
       const newHistory: SearchHistory = {
