@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { styles } from '../styles/appStyles';
 import { sportConfig, sports } from '../config/sportConfig';
-import { videoAssets } from '../config/assetConfig';
 import FeatureBox from './FeatureBox';
-import VideoBackground from './VideoBackground';
 import { SportAnimation } from './animations/SportAnimations';
+import UserProfile from './UserProfile';
 
-interface DashboardProps {
-  onSelectSport: (sport: string) => void;
-}
-
-const Dashboard: React.FC<DashboardProps> = ({ onSelectSport }) => {
+const Dashboard: React.FC = () => {
+  const navigate = useNavigate();
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
   const [navOpen, setNavOpen] = useState(false);
   const [expandingCard, setExpandingCard] = useState<string | null>(null);
@@ -70,7 +67,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onSelectSport }) => {
                   const s = expandingCard; // capture before reset
                   setExpandingCard(null);
                   setCardPosition(null);
-                  if (s) onSelectSport(s);
+                  if (s) navigate(`/sport/${s}`);
                 }}
               />
             </motion.div>
@@ -81,30 +78,33 @@ const Dashboard: React.FC<DashboardProps> = ({ onSelectSport }) => {
       {/* Modern Header */}
       <header style={styles.header}>
         <div style={styles.headerLogo}>⚡ Sports Stats Hub</div>
-        <button
-          style={styles.navToggle}
-          onClick={() => setNavOpen(!navOpen)}
-          aria-label="Toggle navigation"
-        >
-          <div
-            style={{
-              ...styles.navToggleLine,
-              transform: navOpen ? 'rotate(45deg) translateY(10px)' : 'none',
-            }}
-          />
-          <div
-            style={{
-              ...styles.navToggleLine,
-              opacity: navOpen ? 0 : 1,
-            }}
-          />
-          <div
-            style={{
-              ...styles.navToggleLine,
-              transform: navOpen ? 'rotate(-45deg) translateY(-10px)' : 'none',
-            }}
-          />
-        </button>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <UserProfile />
+          <button
+            style={styles.navToggle}
+            onClick={() => setNavOpen(!navOpen)}
+            aria-label="Toggle navigation"
+          >
+            <div
+              style={{
+                ...styles.navToggleLine,
+                transform: navOpen ? 'rotate(45deg) translateY(10px)' : 'none',
+              }}
+            />
+            <div
+              style={{
+                ...styles.navToggleLine,
+                opacity: navOpen ? 0 : 1,
+              }}
+            />
+            <div
+              style={{
+                ...styles.navToggleLine,
+                transform: navOpen ? 'rotate(-45deg) translateY(-10px)' : 'none',
+              }}
+            />
+          </button>
+        </div>
       </header>
 
       {/* Navigation Overlay */}
@@ -166,15 +166,12 @@ const Dashboard: React.FC<DashboardProps> = ({ onSelectSport }) => {
 
       {/* Main Content */}
       <main style={styles.mainContent}>
-        {/* Hero Section with Video Background + Sport Cards */}
+        {/* Hero Section with Sport Cards */}
         <section style={{
           ...styles.heroSection,
           minHeight: '100vh',
           paddingTop: '10px',
         }}>
-          {/* VIDEO BACKGROUND - LOCAL ASSET */}
-          <VideoBackground videoSrc={videoAssets.hero} opacity={0.5} />
-        
           
           {/* Sports Grid - NOW ON FRONT PAGE */}
           <div style={{ 

@@ -3,6 +3,8 @@ import express from 'express';
 import cors from 'cors';
 import 'dotenv/config'; // Loads .env file variables
 import fetch from 'node-fetch'; // To make API calls
+import { logUserLogin, getAllUsers, getUserStats } from './userController.js';
+import './database.js'; // Initialize database
 
 // 2. Set up the Express app
 const app = express();
@@ -13,7 +15,14 @@ const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 app.use(cors());
 app.use(express.json());
 
-// 4. Define your API endpoint
+// 4. Define your API endpoints
+
+// User authentication endpoints
+app.post('/api/users/login', logUserLogin);
+app.get('/api/users', getAllUsers);
+app.get('/api/users/stats', getUserStats);
+
+// Sports search endpoint
 app.post('/api/search', async (req, res) => {
   if (!GEMINI_API_KEY) {
     return res.status(500).json({ error: 'API key not found. Please add it to your .env file.' });

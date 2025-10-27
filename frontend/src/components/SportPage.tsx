@@ -1,4 +1,5 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { styles } from '../styles/appStyles';
 import { sportConfig } from '../config/sportConfig';
 import { videoAssets } from '../config/assetConfig';
@@ -15,12 +16,10 @@ import VideoClips from './VideoClips';
 
 const BackgroundStage = lazy(() => import('./background/BackgroundStage'));
 
-interface SportPageProps {
-  sport: string;
-  onBack: () => void;
-}
-
-const SportPage: React.FC<SportPageProps> = ({ sport, onBack }) => {
+const SportPage: React.FC = () => {
+  const { sportName } = useParams<{ sportName: string }>();
+  const navigate = useNavigate();
+  const sport = sportName || 'Cricket';
   const [query, setQuery] = useState<string>('');
   const [results, setResults] = useState<StatsData | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -116,7 +115,7 @@ const SportPage: React.FC<SportPageProps> = ({ sport, onBack }) => {
       <header style={styles.header}>
         <button
           style={styles.backButton}
-          onClick={onBack}
+          onClick={() => navigate('/')}
           onMouseEnter={(e) => {
             Object.assign(e.currentTarget.style, styles.backButtonHover);
           }}
